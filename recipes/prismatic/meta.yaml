@@ -47,9 +47,12 @@ requirements:
 
 test:
   source_files:
-    - SI100.XYZ
+    - SI100.XYZ                      # [interface == 'cli']
   commands:
-    - prismatic -i SI100.XYZ    # [interface == 'cli']
+    - command -v prismatic           # [interface == 'cli']
+    - prismatic -i SI100.XYZ         # [interface == 'cli']
+    - command -v prismatic-gui       # [linux and interface == 'gui']
+    - test -f $PREFIX/Applications/prismatic-gui.app/Contents/MacOS/prismatic-gui # [osx and interface == 'gui']
 
 
 
