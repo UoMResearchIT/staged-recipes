@@ -18,9 +18,12 @@ build:
   number: {{ build }}
   skip: True             # [win]
   string: "{{ interface }}_h{{ PKG_HASH }}_{{ build }}"
+  skip_compile_pyc:
+    - "pyprismatic/*.py"
 
 requirements:
   build:
+    #- python 3.*                # [interface == 'py']
     - {{ compiler('c') }}                
     - {{ compiler('cxx') }}              
     - {{ cdt('libxext-devel') }}         # [linux]
@@ -34,6 +37,7 @@ requirements:
     - make                               # [unix]
     - cmake
   host:
+    #- python 3.*  # [interface == 'py']
     - boost
     - hdf5
     - fftw
@@ -42,6 +46,7 @@ requirements:
     - h5py
     - zlib
   run:
+    #- python 3.*  # [interface == 'py']
     - fftw
     - libcxx  # [osx]
 
@@ -53,7 +58,8 @@ test:
     - prismatic -i SI100.XYZ         # [interface == 'cli']
     - command -v prismatic-gui       # [linux and interface == 'gui']
     - test -f $PREFIX/Applications/prismatic-gui.app/Contents/MacOS/prismatic-gui # [osx and interface == 'gui']
-
+  imports:
+    - pyprismatic                    # [interface == 'py']
 
 
 about:
