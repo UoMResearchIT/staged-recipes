@@ -1,23 +1,17 @@
-
-
-
-enable_cli=0
+enable_cli=1
 enable_gui=0
-enable_py=0
+enable_py=1
 enable_double=0
 enable_gpu=0
 
-if [[ $interface == "cli" ]]; then
-	enable_cli=1
-	extra_opts=""
-elif [[ $interface == "gui" ]]; then
+if [[ $interface == "gui" ]]; then
 	enable_gui=1
-	extra_opts=""
-elif [[ $interface == "py" ]]; then
-	enable_py=1
-	extra_opts="-D "
 fi
 
+if [[ $processor == "gpu" ]]; then
+	enable_gpu=1
+	enable_py=0
+fi
 
 
 mkdir build && cd build 
@@ -31,16 +25,16 @@ cmake -D PRISMATIC_ENABLE_GUI=$enable_gui \
 	-D CMAKE_PREFIX_PATH=${PREFIX} \
 	../ 
 
-make  -j${CPU_COUNT}
+make  -j${CPU_COUNT} # make all interfaces
 
+make install  # install the GUI and CLI interfaces
 
-if [[ $interface == "py" ]]; then
+# install the python interface (this isn't setup in the CMake file)
+if [[ $enable_py == 1 ]]; then
 	install_dir=${PREFIX}/lib/python3.7/site-packages/pyprismatic
 	mkdir $install_dir
 	cp core.* $install_dir
 	cp ../pyprismatic/* $install_dir
-else
-	make install
 fi
 
 

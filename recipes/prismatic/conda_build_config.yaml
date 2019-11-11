@@ -1,5 +1,6 @@
 interface:
-  - py
-#  - gui
-#  - cli
-
+  - gui
+#  - nogui
+processor:
+  - cpu
+#  - gpu
