@@ -23,7 +23,7 @@ source:
 build:
   number: {{ build }}
   skip: True             # [win]
-  string: "{{ interface }}_h{{ PKG_HASH }}_{{ build }}"
+  string: "{{ interface }}_{{processor}}_h{{ PKG_HASH }}_{{ build }}"
 
 
 requirements:

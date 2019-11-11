@@ -1,6 +1,7 @@
 interface:
   - gui
-#  - nogui
+  - nogui
+
 processor:
   - cpu
-#  - gpu
+
